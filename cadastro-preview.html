@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Cadastro de Vendedores — Orthocrin</title>
+<style>
+  :root{--wine-900:#4a1020;--wine-800:#5e1729;--wine-950:#3a0c1a;--gold:#e5b769;--gold-2:#f8e0b8;--ink:#3a0c1a;--line:rgba(248,224,184,.16)}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--gold-2);min-height:100vh;
+    display:flex;align-items:flex-start;justify-content:center;padding:34px 16px;
+    background:radial-gradient(1100px 520px at 18% -8%,rgba(184,54,94,.5),transparent 60%),
+      linear-gradient(160deg,var(--wine-900),var(--wine-800) 40%,var(--wine-950))}
+  .card{width:100%;max-width:520px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.16));
+    border:1px solid var(--line);border-radius:20px;padding:24px 22px 28px;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+  h1{font-size:22px;margin:0 0 4px;color:#fff}
+  .aviso{background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+    font-size:12.5px;color:var(--gold);margin:12px 0 18px;line-height:1.5}
+  label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);opacity:.85;margin:14px 0 5px}
+  input,select{width:100%;padding:12px 13px;border-radius:11px;border:1px solid var(--line);background:rgba(0,0,0,.22);color:#fff;font-size:15px;outline:none}
+  select option{color:#000}
+  input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(229,183,105,.18)}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  button{width:100%;margin-top:22px;padding:13px;border:0;border-radius:11px;cursor:pointer;
+    background:linear-gradient(180deg,#fff7e9,var(--gold-2) 40%,var(--gold));color:var(--ink);
+    font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.03em}
+  button:disabled{opacity:.6;cursor:default}
+  .erro{color:#ffc0c0;font-size:12px;margin-top:5px;min-height:15px}
+  .msg{margin-top:16px;font-size:14px;text-align:center;line-height:1.5}
+  .msg.ok{color:var(--gold-2)} .msg.err{color:#ffc0c0}
+</style></head>
+<body>
+  <div class="card">
+    <h1>🏆 Cadastro de Vendedores</h1>
+    <p class="aviso">⚠️ O cadastro <b>não é acesso automático</b>. A equipe valida suas respostas e cria seu
+      usuário na Peoplefy. Não precisa preencher mais de uma vez — é só aguardar.</p>
+    <form id="f" autocomplete="on">
+      <label for="nome">Nome completo</label>
+      <input id="nome" placeholder="Nome e sobrenome"><div class="erro" id="e-nome"></div>
+      <label for="cpf">CPF</label>
+      <input id="cpf" inputmode="numeric" placeholder="000.000.000-00"><div class="erro" id="e-cpf"></div>
+      <label for="telefone">Telefone (com DDD)</label>
+      <input id="telefone" inputmode="numeric" placeholder="(00) 00000-0000"><div class="erro" id="e-telefone"></div>
+      <label for="email">Email de acesso</label>
+      <input id="email" type="email" placeholder="voce@exemplo.com"><div class="erro" id="e-email"></div>
+      <label for="loja">Sua loja</label>
+      <select id="loja"><option value="">Selecione a sua loja</option></select><div class="erro" id="e-loja"></div>
+      <input class="hp" id="hp" tabindex="-1" autocomplete="off" placeholder="Deixe em branco">
+      <button id="btn" type="submit">Enviar cadastro</button>
+    </form>
+    <div id="msg" class="msg"></div>
+  </div>
+<script>
+const D = {"worker": "https://orthocrin-cadastro.suportecomercial.workers.dev", "endpoint": "https://orthocrin-cadastro.suportecomercial.workers.dev/cadastro", "lojas": [{"c": "10535", "n": "10535 - 10535"}, {"c": "11155", "n": "11155 - 11155"}, {"c": "11406", "n": "11406 - 11406"}, {"c": "11469", "n": "11469 - 11469 - Ipatinga Macapá"}, {"c": "11500", "n": "11500 - 11500"}, {"c": "11986", "n": "11986 - 11986 - Poços de Caldas"}, {"c": "12444", "n": "12444 - 12444"}, {"c": "12497", "n": "12497 - 12497"}, {"c": "12505", "n": "12505 - 12505"}, {"c": "12755", "n": "12755 - 12755 - Diamantina"}, {"c": "12761", "n": "12761 - 12761 - Ubá"}, {"c": "12999", "n": "12999 - 12999"}, {"c": "13033", "n": "13033 - 13033"}, {"c": "1307", "n": "1307 - 1307"}, {"c": "13103", "n": "13103 - 13103 - Contagem Centro"}, {"c": "13261", "n": "13261 - 13261"}, {"c": "13388", "n": "13388 - 13388"}, {"c": "13502", "n": "13502 - 13502"}, {"c": "13749", "n": "13749 - 13749"}, {"c": "13833", "n": "13833 - 13833 - Patos de Minas"}, {"c": "14103", "n": "14103 - 14103"}, {"c": "14131", "n": "14131 - 14131"}, {"c": "14141", "n": "14141 - 14141"}, {"c": "14222", "n": "14222 - 14222"}, {"c": "14292", "n": "14292 - 14292"}, {"c": "14321", "n": "14321 - 14321"}, {"c": "14380", "n": "14380 - 14380"}, {"c": "14381", "n": "14381 - 14381"}, {"c": "14384", "n": "14384 - 14384"}, {"c": "14532", "n": "14532 - 14532"}, {"c": "14684", "n": "14684 - 14684"}, {"c": "14771", "n": "14771 - 14771 - Divinópolis"}, {"c": "14794", "n": "14794 - 14794"}, {"c": "14795", "n": "14795 - 14795 - Unaí"}, {"c": "14885", "n": "14885 - 14885"}, {"c": "14996", "n": "14996 - 14996 - Vespasiano"}, {"c": "15116", "n": "15116 - 15116"}, {"c": "15117", "n": "15117 - 15117"}, {"c": "15155", "n": "15155 - 15155"}, {"c": "15178", "n": "15178 - 15178"}, {"c": "15195", "n": "15195 - 15195 - BH Grajaú"}, {"c": "15258", "n": "15258 - 15258"}, {"c": "15400", "n": "15400 - 15400"}, {"c": "15411", "n": "15411 - 15411"}, {"c": "15551", "n": "15551 - 15551"}, {"c": "15577", "n": "15577 - 15577"}, {"c": "15608", "n": "15608 - 15608"}, {"c": "15620", "n": "15620 - 15620"}, {"c": "15693", "n": "15693 - 15693 - Três Corações"}, {"c": "15707", "n": "15707 - 15707 - BH Guarani"}, {"c": "15772", "n": "15772 - 15772"}, {"c": "15837", "n": "15837 - 15837"}, {"c": "15915", "n": "15915 - 15915 - PP Aimorés"}, {"c": "15916", "n": "15916 - 15916 - PP Colômbia"}, {"c": "15918", "n": "15918 - 15918 - PP Afonso Pena"}, {"c": "16019", "n": "16019 - 16019"}, {"c": "16020", "n": "16020 - 16020"}, {"c": "16021", "n": "16021 - 16021"}, {"c": "16031", "n": "16031 - 16031"}, {"c": "16054", "n": "16054 - 16054"}, {"c": "16127", "n": "16127 - 16127 - BH Sagrada Família"}, {"c": "16240", "n": "16240 - 16240"}, {"c": "16248", "n": "16248 - 16248 - BH Cachoeirinha"}, {"c": "16413", "n": "16413 - 16413"}, {"c": "16416", "n": "16416 - 16416 - BH Shopping Cidade (Novo)"}, {"c": "16423", "n": "16423 - 16423"}, {"c": "16470", "n": "16470 - 16470 - Muriaé"}, {"c": "16526", "n": "16526 - 16526"}, {"c": "16651", "n": "16651 - 16651"}, {"c": "16672", "n": "16672 - 16672"}, {"c": "16705", "n": "16705 - 16705 - Ibirité"}, {"c": "16749", "n": "16749 - 16749"}, {"c": "16753", "n": "16753 - 16753"}, {"c": "16790", "n": "16790 - 16790"}, {"c": "16804", "n": "16804 - 16804"}, {"c": "16833", "n": "16833 - 16833 - COLCHOES E CIA"}, {"c": "16896", "n": "16896 - 16896 - BH Shopping Estação"}, {"c": "16957", "n": "16957 - 16957"}, {"c": "17010", "n": "17010 - 17010 - Betim Centro"}, {"c": "17083", "n": "17083 - 17083 - BH Shopping Del Rey (Novo)"}, {"c": "17124", "n": "17124 - 17124 - BH Santa Inês"}, {"c": "17163", "n": "17163 - 17163"}, {"c": "17179", "n": "17179 - 17179"}, {"c": "17303", "n": "17303 - 17303"}, {"c": "17576", "n": "17576 - 17576"}, {"c": "17631", "n": "17631 - 17631 - BH Shopping Boulevard"}, {"c": "17682", "n": "17682 - 17682 - Manhuaçu"}, {"c": "17708", "n": "17708 - 17708 - BH Floresta"}, {"c": "18219", "n": "18219 - 18219"}, {"c": "18229", "n": "18229 - 18229 - BH Shopping Del Rey (Antigo)"}, {"c": "18518", "n": "18518 - 18518"}, {"c": "18554", "n": "18554 - 18554 - São João Del Rey"}, {"c": "19082", "n": "19082 - 19082"}, {"c": "19110", "n": "19110 - 19110"}, {"c": "19171", "n": "19171 - 19171 - BH Pará de Minas"}, {"c": "19222", "n": "19222 - 19222"}, {"c": "19297", "n": "19297 - 19297"}, {"c": "19388", "n": "19388 - 19388"}, {"c": "19412", "n": "19412 - 19412 - Barão de Cocais"}, {"c": "19589", "n": "19589 - 19589 - Vila Velha"}, {"c": "19614", "n": "19614 - 19614 - Varginha"}, {"c": "19891", "n": "19891 - 19891 - Colatina"}, {"c": "20033", "n": "20033 - 20033"}, {"c": "20134", "n": "20134 - 20134"}, {"c": "20229", "n": "20229 - 20229 - BH Castelo"}, {"c": "20293", "n": "20293 - 20293"}, {"c": "20295", "n": "20295 - 20295"}, {"c": "20308", "n": "20308 - 20308"}, {"c": "2054", "n": "2054 - 2054 - BH Savassi"}, {"c": "20574", "n": "20574 - 20574 - Timóteo"}, {"c": "20746", "n": "20746 - 20746 - Caratinga"}, {"c": "20846", "n": "20846 - 20846"}, {"c": "20862", "n": "20862 - 20862 - BH Shopping Cidade (Antigo)"}, {"c": "20946", "n": "20946 - 20946 - Ipatinga Shopping Vale do Aço"}, {"c": "20957", "n": "20957 - 20957 - BH Itapoá"}, {"c": "21032", "n": "21032 - 21032 - BH Cidade Jardim"}, {"c": "21084", "n": "21084 - 21084"}, {"c": "21190", "n": "21190 - 21190 - BH Minas Shopping"}, {"c": "21296", "n": "21296 - 21296 - Brumadinho"}, {"c": "21329", "n": "21329 - 21329 - Nova Lima Vila da Serra"}, {"c": "21547", "n": "21547 - 21547"}, {"c": "21654", "n": "21654 - 21654 - Ipatinga Cidade Nobre"}, {"c": "21839", "n": "21839 - 21839"}, {"c": "21871", "n": "21871 - 21871"}, {"c": "22071", "n": "22071 - 22071"}, {"c": "22167", "n": "22167 - 22167 - BH Gutierrez"}, {"c": "22407", "n": "22407 - 22407"}, {"c": "23694", "n": "23694 - 23694 - Igarapé"}, {"c": "23713", "n": "23713 - 23713 - Curvelo"}, {"c": "23781", "n": "23781 - 23781 - BH Jaraguá"}, {"c": "23929", "n": "23929 - 23929"}, {"c": "24329", "n": "24329 - 24329"}, {"c": "24413", "n": "24413 - 24413"}, {"c": "24414", "n": "24414 - 24414 - Barbacena"}, {"c": "24520", "n": "24520 - 24520 - Pedro Leopoldo"}, {"c": "24527", "n": "24527 - 24527 - BH Rio Branco"}, {"c": "24644", "n": "24644 - 24644"}, {"c": "24999", "n": "24999 - 24999"}, {"c": "26670", "n": "26670 - 26670"}, {"c": "26671", "n": "26671 - 26671 - BH Buritis (Antigo)"}, {"c": "26712", "n": "26712 - 26712 - BH Padre Eustáquio"}, {"c": "26714", "n": "26714 - 26714"}, {"c": "27202", "n": "27202 - 27202 - Nova Lima Centro"}, {"c": "27669", "n": "27669 - 27669 - Volpi Colchões"}, {"c": "28138", "n": "28138 - 28138"}, {"c": "28231", "n": "28231 - 28231"}, {"c": "2960", "n": "2960 - 2960 - Santo Antônio do Monte"}, {"c": "29836", "n": "29836 - 29836 - BH Santa Inês"}, {"c": "30605", "n": "30605 - 30605"}, {"c": "30713", "n": "30713 - 30713 - Viçosa"}, {"c": "31382", "n": "31382 - 31382 - Conselheiro Lafaiete"}, {"c": "31446", "n": "31446 - 31446 - São Gotardo"}, {"c": "32213", "n": "32213 - 32213 - BH Céu Azul"}, {"c": "33203", "n": "33203 - 33203"}, {"c": "33467", "n": "33467 - 33467"}, {"c": "33580", "n": "33580 - 33580 - Vitória"}, {"c": "34155", "n": "34155 - 34155"}, {"c": "34156", "n": "34156 - 34156 - BH Mangabeiras"}, {"c": "34189", "n": "34189 - 34189 - BH Venda Nova"}, {"c": "35823", "n": "35823 - 35823 - BH Dona Clara"}, {"c": "37473", "n": "37473 - 37473"}, {"c": "38354", "n": "38354 - 38354 - Juiz de Fora"}, {"c": "39831", "n": "39831 - 39831 - BH Cidade Nova"}, {"c": "39838", "n": "39838 - 39838 - Nova Lima Jardim Canadá"}, {"c": "39990", "n": "39990 - 39990 - Ouro Branco"}, {"c": "4503", "n": "4503 - 4503"}, {"c": "47310", "n": "47310 - 47310 - Betim Filadélfia"}, {"c": "49648", "n": "49648 - 49648 - Sarzedo"}, {"c": "49921", "n": "49921 - 49921"}, {"c": "49924", "n": "49924 - 49924 - BH Ouro Preto"}, {"c": "50579", "n": "50579 - 50579 - BH Lourdes"}, {"c": "51484", "n": "51484 - 51484 - Pouso Alegre"}, {"c": "51485", "n": "51485 - 51485"}, {"c": "51656", "n": "51656 - 51656"}, {"c": "51881", "n": "51881 - 51881"}, {"c": "52119", "n": "52119 - 52119 - BH Paquetá"}, {"c": "52952", "n": "52952 - 52952 - João Monlevade"}, {"c": "53851", "n": "53851 - 53851"}, {"c": "54990", "n": "54990 - 54990 - BH Santa Amélia"}, {"c": "55215", "n": "55215 - 55215"}, {"c": "55407", "n": "55407 - 55407 - Patos de Minas"}, {"c": "56196", "n": "56196 - 56196 - Brasilia"}, {"c": "56198", "n": "56198 - 56198 - BH Maria Helena"}, {"c": "56287", "n": "56287 - 56287 - Itaperuna"}, {"c": "56514", "n": "56514 - 56514"}, {"c": "58288", "n": "58288 - 58288 - Sete Lagoas"}, {"c": "59064", "n": "59064 - 59064 - Contagem Petrolândia"}, {"c": "59952", "n": "59952 - 59952 - BH Salgado Filho"}, {"c": "60281", "n": "60281 - 60281 - Contagem Shopping"}, {"c": "60350", "n": "60350 - 60350 - Mariana"}, {"c": "60521", "n": "60521 - 60521 - BH Ouro Preto"}, {"c": "60607", "n": "60607 - 60607 - Formosa"}, {"c": "60995", "n": "60995 - 60995 - Montes Claros"}, {"c": "61139", "n": "61139 - 61139 - Uberaba"}, {"c": "61481", "n": "61481 - 61481 - Pouso Alegre"}, {"c": "64662", "n": "64662 - 64662 - BH Carmo"}, {"c": "65860", "n": "65860 - 65860 - BH Ponteio"}, {"c": "66278", "n": "66278 - 66278 - BRASILIA II DF"}, {"c": "66472", "n": "66472 - 66472 - BH Buritis (Novo)"}, {"c": "7034", "n": "7034 - 7034"}, {"c": "7093", "n": "7093 - 7093"}, {"c": "71328", "n": "71328 - 71328 - Ponte Nova"}, {"c": "71422", "n": "71422 - 71422 - Governador Valadares"}, {"c": "72031", "n": "72031 - 72031 - Itaúna"}, {"c": "7250", "n": "7250 - 7250"}, {"c": "74043", "n": "74043 - 74043 - Ponte Nova"}, {"c": "75913", "n": "75913 - 75913 - BH Rio Branco"}, {"c": "76252", "n": "76252 - 76252 - BH Castelo"}, {"c": "76314", "n": "76314 - 76314 - BH Mangabeiras"}, {"c": "77133", "n": "77133 - 77133 - BH Gutierrez"}, {"c": "79760", "n": "79760 - 79760 - Curvelo"}, {"c": "79992", "n": "79992 - 79992 - Nova Lima"}, {"c": "81572", "n": "81572 - 81572 - Patos de Minas"}, {"c": "82432", "n": "82432 - 82432 - Betim JK"}, {"c": "82437", "n": "82437 - 82437 - BH Caiçaras"}, {"c": "82805", "n": "82805 - 82805 - Pará de Minas"}, {"c": "9000", "n": "9000 - 9000 - Lagoa Santa"}, {"c": "9240", "n": "9240 - 9240"}]};
+const $ = id => document.getElementById(id);
+const soDig = s => (s||'').replace(/\D/g,'');
+function validaCpf(v){ const c=soDig(v); if(c.length!==11||/^(\d)\1{10}$/.test(c))return false;
+  const dv=n=>{let s=0;for(let i=0;i<n;i++)s+=+c[i]*(n+1-i);let r=(s*10)%11;return r===10?0:r;};
+  return dv(9)===+c[9]&&dv(10)===+c[10]; }
+function mascaraCpf(v){const c=soDig(v).slice(0,11);return c.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/,'$1.$2.$3-$4');}
+function mascaraTel(v){const c=soDig(v).slice(0,11);if(c.length<=2)return c;if(c.length<=7)return`(${c.slice(0,2)}) ${c.slice(2)}`;return`(${c.slice(0,2)}) ${c.slice(2,7)}-${c.slice(7)}`;}
+$('cpf').addEventListener('input',e=>e.target.value=mascaraCpf(e.target.value));
+$('telefone').addEventListener('input',e=>e.target.value=mascaraTel(e.target.value));
+(function(){ if(D&&D.lojas){const s=$('loja');for(const l of D.lojas){const o=document.createElement('option');o.value=l.c+' - '+l.n.replace(/^\d+\s*-\s*/,'');o.dataset.c=l.c;o.textContent=l.n;s.appendChild(o);} } })();
+function erro(campo,txt){$('e-'+campo).textContent=txt||'';return !txt;}
+function valida(){
+  let ok=true;
+  ok &= erro('nome', $('nome').value.trim().split(/\s+/).filter(Boolean).length>=2 ? '' : 'Digite nome e sobrenome.');
+  ok &= erro('cpf', validaCpf($('cpf').value) ? '' : 'CPF inválido.');
+  ok &= erro('telefone', soDig($('telefone').value).length===11 ? '' : 'Telefone com DDD + 9 dígitos.');
+  ok &= erro('email', /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($('email').value.trim()) ? '' : 'Email inválido.');
+  ok &= erro('loja', $('loja').value ? '' : 'Selecione a sua loja.');
+  return !!ok;
+}
+function msg(t,cls){const m=$('msg');m.textContent=t||'';m.className='msg '+(cls||'');}
+$('f').addEventListener('submit', async e=>{
+  e.preventDefault();
+  if($('hp').value){ msg('Cadastro enviado! Aguarde a aprovação.','ok'); return; } // bot
+  if(!valida()) return;
+  const opt=$('loja').selectedOptions[0];
+  const corpo={nome:$('nome').value.trim(), cpf:soDig($('cpf').value), telefone:soDig($('telefone').value),
+    email:$('email').value.trim().toLowerCase(), codigo_loja:opt.dataset.c, loja_label:$('loja').value, hp:''};
+  $('btn').disabled=true; msg('Enviando…','ok');
+  try{
+    const r=await fetch(D.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(corpo)});
+    const d=await r.json();
+    if(d.status==='ok'){ msg('✓ Cadastro enviado! Agora é só aguardar a aprovação da equipe. Não precisa preencher de novo.','ok'); $('f').reset(); }
+    else if(d.status==='ja_na_peoplefy'){ msg('Seu acesso na Peoplefy já está pronto! Entre com seu email — não precisa se cadastrar de novo.','ok'); }
+    else if(d.status==='em_aprovacao'){ msg('Você já enviou seu cadastro e ele está em aprovação interna. Aguarde — não precisa refazer.','ok'); }
+    else if(d.status==='erro_validacao'){ msg('Confira os dados: '+(d.campo||'')+'.','err'); }
+    else { msg('Não foi possível enviar agora. Tente novamente em instantes.','err'); }
+  }catch(err){ msg('Falha de conexão. Tente novamente.','err'); }
+  finally{ $('btn').disabled=false; }
+});
+</script>
+</body></html>
