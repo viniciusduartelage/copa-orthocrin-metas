@@ -27,6 +27,26 @@
   .erro{color:#ffc0c0;font-size:12px;margin-top:5px;min-height:15px}
   .msg{margin-top:16px;font-size:14px;text-align:center;line-height:1.5}
   .msg.ok{color:var(--gold-2)} .msg.err{color:#ffc0c0}
+
+  .termo{display:flex;align-items:flex-start;gap:10px;margin:20px 0 0;text-transform:none;letter-spacing:0;
+    font-size:13.5px;line-height:1.45;color:var(--gold-2);opacity:1;cursor:pointer}
+  .termo input{width:18px;height:18px;flex:none;margin:1px 0 0;accent-color:var(--gold)}
+  .termo a{color:#fff;font-weight:700;text-decoration:underline}
+  .termo-fundo{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;
+    justify-content:center;padding:16px;z-index:20}
+  .termo-fundo.on{display:flex}
+  .termo-janela{width:100%;max-width:640px;max-height:88vh;display:flex;flex-direction:column;
+    background:linear-gradient(180deg,#5e1729,#4a1020);border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .termo-janela header{padding:18px 22px 10px;border-bottom:1px solid var(--line)}
+  .termo-janela header h2{margin:0;font-size:17px;color:#fff}
+  .termo-janela header p{margin:2px 0 0;font-size:12px;color:var(--gold)}
+  .termo-corpo{overflow-y:auto;padding:6px 22px 14px;font-size:13.5px;line-height:1.6;color:var(--gold-2)}
+  .termo-corpo h3{font-size:13px;color:#fff;margin:16px 0 4px;letter-spacing:.02em}
+  .termo-corpo p{margin:0 0 8px}
+  .termo-janela footer{display:flex;gap:10px;padding:12px 22px 18px;border-top:1px solid var(--line)}
+  .termo-janela footer button{margin:0;text-transform:none;font-size:14px}
+  .termo-janela footer .sec{background:transparent;color:var(--gold-2);border:1px solid var(--line)}
 </style></head>
 <body>
   <div class="card">
@@ -45,13 +65,80 @@
       <input id="email" type="email" placeholder="voce@exemplo.com"><div class="erro" id="e-email"></div>
       <label for="loja">Sua loja</label>
       <select id="loja"><option value="">Selecione a sua loja</option></select><div class="erro" id="e-loja"></div>
+
+      <label class="termo" for="termo">
+        <input type="checkbox" id="termo">
+        <span>Li e aceito o <a href="#" id="termo-abrir">Termo de Adesão</a> da plataforma Peoplefy.</span>
+      </label><div class="erro" id="e-termo"></div>
       <input class="hp" id="hp" tabindex="-1" autocomplete="off" placeholder="Deixe em branco">
       <button id="btn" type="submit">Enviar cadastro</button>
     </form>
     <div id="msg" class="msg"></div>
   </div>
+
+  <div class="termo-fundo" id="termo-fundo">
+    <div class="termo-janela" role="dialog" aria-modal="true" aria-labelledby="termo-t">
+      <header><h2 id="termo-t">Termo de Adesão</h2><p>Plataforma Peoplefy | Orthocrin</p></header>
+      <div class="termo-corpo"><p>Plataforma Peoplefy | Orthocrin</p>
+<p>Ao aceitar este termo na plataforma Peoplefy, o(a) colaborador(a) declara que leu, compreendeu e concorda, de forma livre, individual e voluntária, com as regras da campanha de incentivo promovida por Orthocrin, doravante denominada EMPRESA.</p>
+<h3>1. OBJETIVO DA CAMPANHA</h3>
+<p>A presente campanha tem como finalidade estimular a performance, o engajamento e o alcance de resultados, reconhecendo e premiando colaboradores(as) de acordo com critérios, metas e desafios definidos pela EMPRESA e disponibilizados na plataforma Peoplefy.</p>
+<p>As premiações possuem caráter exclusivamente incentivador, sendo concedidas por liberalidade da EMPRESA.</p>
+<h3>2. PARTICIPAÇÃO E CONDIÇÕES GERAIS</h3>
+<p>Ao aderir à campanha, o(a) colaborador(a) declara ciência de que:</p>
+<p>A participação é individual e facultativa;</p>
+<p>É necessário cumprir integralmente as regras e metas estabelecidas no regulamento da campanha;</p>
+<p>Os dados de desempenho poderão ser validados pela liderança ou gestão responsável;</p>
+<p>Em caso de inconsistências, indícios de fraude ou descumprimento das regras, a EMPRESA poderá revisar resultados, ajustar pontuações ou desclassificar participantes.</p>
+<h3>3. MECÂNICA DE PONTUAÇÃO E PREMIAÇÃO</h3>
+<p>O(a) colaborador(a) está ciente de que:</p>
+<p>Pontos, XP, moedas ou rankings são atribuídos conforme a mecânica definida em cada campanha;</p>
+<p>A apuração poderá ocorrer a partir de dados inseridos manualmente pela liderança ou integrados aos sistemas da EMPRESA;</p>
+<p>A participação na campanha não substitui, complementa ou altera salário, comissões ou benefícios;</p>
+<p>As premiações poderão ser concedidas, a critério da EMPRESA, em formatos como:</p>
+<p>produtos,</p>
+<p>créditos ou vales,</p>
+<p>moedas virtuais,</p>
+<p>experiências,</p>
+<p>ou outros benefícios previamente definidos.</p>
+<h3>4. NATUREZA DA PREMIAÇÃO</h3>
+<p>As premiações possuem natureza eventual, variável e não salarial, não integrando a remuneração do colaborador para quaisquer efeitos legais.</p>
+<p>Nos termos do art. 457, §2º, da CLT, prêmios concedidos por desempenho superior ao ordinariamente esperado não se incorporam ao salário, ainda que concedidos com habitualidade.</p>
+<h3>5. ELEGIBILIDADE E SITUAÇÕES ESPECIAIS</h3>
+<p>O(a) colaborador(a) concorda que:</p>
+<p>É necessário estar ativo(a) na EMPRESA durante o período da campanha;</p>
+<p>Transferências de loja, função ou área poderão ser avaliadas conforme políticas internas;</p>
+<p>Em caso de desligamento, afastamentos, licenças prolongadas, faltas graves ou condutas incompatíveis, a EMPRESA poderá vetar a participação ou a entrega da premiação.</p>
+<h3>6. USO DA PLATAFORMA PEOPLEFY</h3>
+<p>O participante declara estar ciente de que:</p>
+<p>A plataforma Peoplefy é o canal oficial para acompanhamento da campanha;</p>
+<p>Suas ações na plataforma podem gerar registros automáticos de participação e pontuação, sujeitos à validação;</p>
+<p>Evidências enviadas (fotos, vídeos, comentários ou arquivos) são de sua autoria e poderão ser utilizadas internamente para fins de comprovação, comunicação ou divulgação da campanha.</p>
+<h3>7. FACULTATIVIDADE E REVOGABILIDADE</h3>
+<p>A participação nesta campanha não gera direito adquirido.</p>
+<p>A EMPRESA poderá, a qualquer momento, alterar, suspender ou encerrar a campanha ou suas regras, sem que isso configure alteração do contrato de trabalho ou gere qualquer obrigação adicional.</p>
+<h3>8. SEGURANÇA E PRIVACIDADE</h3>
+<p>A EMPRESA e a Peoplefy comprometem-se a tratar os dados pessoais dos participantes em conformidade com a Lei Geral de Proteção de Dados (LGPD), utilizando-os exclusivamente para fins de apuração, comunicação e gestão da campanha.</p>
+<h3>9. AUTORIZAÇÃO DE USO DE NOME, IMAGEM E PONTUAÇÃO</h3>
+<p>O(a) colaborador(a) declara estar ciente e de acordo que, em razão da natureza gamificada da campanha, seu nome, sua imagem e seus resultados serão exibidos aos demais participantes e, para tanto:</p>
+<p>Autoriza expressamente, de forma livre, gratuita e sem qualquer ônus para a EMPRESA ou para a Peoplefy, a publicação de seu nome (completo ou abreviado), de sua imagem (incluindo foto de perfil e fotos ou vídeos enviados como evidência), de sua pontuação, posição em rankings, conquistas e demais resultados obtidos na campanha;</p>
+<p>Está ciente de que tais informações poderão ser publicadas nos rankings, placares, murais, feeds, notificações e demais funcionalidades e atividades da plataforma Peoplefy, bem como nos canais internos de comunicação da EMPRESA relacionados à campanha, inclusive em divulgações de premiações e reconhecimentos;</p>
+<p>A presente autorização destina-se exclusivamente à execução, à comunicação e à divulgação interna da campanha, sendo vedada a utilização de seu nome e de sua imagem para fins comerciais, publicitários ou externos sem nova e específica autorização;</p>
+<p>Poderá revogar esta autorização a qualquer tempo, mediante solicitação expressa à EMPRESA, ciente de que a exibição nos rankings é inerente à mecânica da campanha e de que a revogação poderá implicar a impossibilidade de continuidade de sua participação, preservados os usos realizados até então e sem qualquer outro reflexo em seu contrato de trabalho.</p>
+<h3>10. DISPOSIÇÕES FINAIS</h3>
+<p>Ao aceitar este termo, o(a) colaborador(a) declara que:</p>
+<p>Leu e compreendeu todas as regras da campanha;</p>
+<p>Concorda integralmente com as condições aqui descritas;</p>
+<p>Reconhece que a premiação não é garantida, estando condicionada ao desempenho e aos critérios definidos;</p>
+<p>Eventuais dúvidas deverão ser tratadas com a liderança ou responsável pela campanha.</p></div>
+      <footer>
+        <button type="button" class="sec" id="termo-fechar">Fechar</button>
+        <button type="button" id="termo-aceitar">Li e aceito</button>
+      </footer>
+    </div>
+  </div>
 <script>
-const D = {"worker": "https://orthocrin-cadastro.suportecomercial.workers.dev", "endpoint": "https://orthocrin-cadastro.suportecomercial.workers.dev/cadastro", "lojas": [{"c": "2054", "n": "2054 - BH Savassi"}, {"c": "2960", "n": "2960 - Santo Antônio do Monte"}, {"c": "9000", "n": "9000 - Lagoa Santa"}, {"c": "11469", "n": "11469 - Ipatinga Macapá"}, {"c": "11986", "n": "11986 - Poços de Caldas"}, {"c": "12755", "n": "12755 - Diamantina"}, {"c": "12761", "n": "12761 - Ubá"}, {"c": "13103", "n": "13103 - Contagem Centro"}, {"c": "13833", "n": "13833 - Patos de Minas"}, {"c": "14771", "n": "14771 - Divinópolis"}, {"c": "14795", "n": "14795 - Unaí"}, {"c": "14996", "n": "14996 - Vespasiano"}, {"c": "15195", "n": "15195 - BH Grajaú"}, {"c": "15693", "n": "15693 - Três Corações"}, {"c": "15707", "n": "15707 - BH Guarani"}, {"c": "15915", "n": "15915 - PP Aimorés"}, {"c": "15916", "n": "15916 - PP Colômbia"}, {"c": "15918", "n": "15918 - PP Afonso Pena"}, {"c": "16127", "n": "16127 - BH Sagrada Família"}, {"c": "16248", "n": "16248 - BH Cachoeirinha"}, {"c": "16416", "n": "16416 - BH Shopping Cidade (Novo)"}, {"c": "16470", "n": "16470 - Muriaé"}, {"c": "16705", "n": "16705 - Ibirité"}, {"c": "16833", "n": "16833 - COLCHOES E CIA"}, {"c": "16896", "n": "16896 - BH Shopping Estação"}, {"c": "17010", "n": "17010 - Betim Centro"}, {"c": "17083", "n": "17083 - BH Shopping Del Rey (Novo)"}, {"c": "17124", "n": "17124 - BH Santa Inês"}, {"c": "17631", "n": "17631 - BH Shopping Boulevard"}, {"c": "17682", "n": "17682 - Manhuaçu"}, {"c": "17708", "n": "17708 - BH Floresta"}, {"c": "18229", "n": "18229 - BH Shopping Del Rey (Antigo)"}, {"c": "18554", "n": "18554 - São João Del Rey"}, {"c": "19171", "n": "19171 - BH Pará de Minas"}, {"c": "19412", "n": "19412 - Barão de Cocais"}, {"c": "19589", "n": "19589 - Vila Velha"}, {"c": "19614", "n": "19614 - Varginha"}, {"c": "19891", "n": "19891 - Colatina"}, {"c": "20229", "n": "20229 - BH Castelo"}, {"c": "20574", "n": "20574 - Timóteo"}, {"c": "20746", "n": "20746 - Caratinga"}, {"c": "20862", "n": "20862 - BH Shopping Cidade (Antigo)"}, {"c": "20946", "n": "20946 - Ipatinga Shopping Vale do Aço"}, {"c": "20957", "n": "20957 - BH Itapoá"}, {"c": "21032", "n": "21032 - BH Cidade Jardim"}, {"c": "21190", "n": "21190 - BH Minas Shopping"}, {"c": "21296", "n": "21296 - Brumadinho"}, {"c": "21329", "n": "21329 - Nova Lima Vila da Serra"}, {"c": "21654", "n": "21654 - Ipatinga Cidade Nobre"}, {"c": "22167", "n": "22167 - BH Gutierrez"}, {"c": "23694", "n": "23694 - Igarapé"}, {"c": "23713", "n": "23713 - Curvelo"}, {"c": "23781", "n": "23781 - BH Jaraguá"}, {"c": "24414", "n": "24414 - Barbacena"}, {"c": "24520", "n": "24520 - Pedro Leopoldo"}, {"c": "24527", "n": "24527 - BH Rio Branco"}, {"c": "26671", "n": "26671 - BH Buritis (Antigo)"}, {"c": "26712", "n": "26712 - BH Padre Eustáquio"}, {"c": "27202", "n": "27202 - Nova Lima Centro"}, {"c": "27669", "n": "27669 - Volpi Colchões"}, {"c": "29836", "n": "29836 - BH Santa Inês"}, {"c": "30713", "n": "30713 - Viçosa"}, {"c": "31382", "n": "31382 - Conselheiro Lafaiete"}, {"c": "31446", "n": "31446 - São Gotardo"}, {"c": "32213", "n": "32213 - BH Céu Azul"}, {"c": "33580", "n": "33580 - Vitória"}, {"c": "34156", "n": "34156 - BH Mangabeiras"}, {"c": "34189", "n": "34189 - BH Venda Nova"}, {"c": "35823", "n": "35823 - BH Dona Clara"}, {"c": "38354", "n": "38354 - Juiz de Fora"}, {"c": "39831", "n": "39831 - BH Cidade Nova"}, {"c": "39838", "n": "39838 - Nova Lima Jardim Canadá"}, {"c": "39990", "n": "39990 - Ouro Branco"}, {"c": "47310", "n": "47310 - Betim Filadélfia"}, {"c": "49648", "n": "49648 - Sarzedo"}, {"c": "49924", "n": "49924 - BH Ouro Preto"}, {"c": "50579", "n": "50579 - BH Lourdes"}, {"c": "51484", "n": "51484 - Pouso Alegre"}, {"c": "52119", "n": "52119 - BH Paquetá"}, {"c": "52952", "n": "52952 - João Monlevade"}, {"c": "54990", "n": "54990 - BH Santa Amélia"}, {"c": "55407", "n": "55407 - Patos de Minas"}, {"c": "56196", "n": "56196 - Brasilia"}, {"c": "56198", "n": "56198 - BH Maria Helena"}, {"c": "56287", "n": "56287 - Itaperuna"}, {"c": "58288", "n": "58288 - Sete Lagoas"}, {"c": "59064", "n": "59064 - Contagem Petrolândia"}, {"c": "59952", "n": "59952 - BH Salgado Filho"}, {"c": "60281", "n": "60281 - Contagem Shopping"}, {"c": "60350", "n": "60350 - Mariana"}, {"c": "60521", "n": "60521 - BH Ouro Preto"}, {"c": "60607", "n": "60607 - Formosa"}, {"c": "60995", "n": "60995 - Montes Claros"}, {"c": "61139", "n": "61139 - Uberaba"}, {"c": "61481", "n": "61481 - Pouso Alegre"}, {"c": "64662", "n": "64662 - BH Carmo"}, {"c": "65860", "n": "65860 - BH Ponteio"}, {"c": "66278", "n": "66278 - BRASILIA II DF"}, {"c": "66472", "n": "66472 - BH Buritis (Novo)"}, {"c": "71328", "n": "71328 - Ponte Nova"}, {"c": "71422", "n": "71422 - Governador Valadares"}, {"c": "72031", "n": "72031 - Itaúna"}, {"c": "74043", "n": "74043 - Ponte Nova"}, {"c": "75913", "n": "75913 - BH Rio Branco"}, {"c": "76252", "n": "76252 - BH Castelo"}, {"c": "76314", "n": "76314 - BH Mangabeiras"}, {"c": "77133", "n": "77133 - BH Gutierrez"}, {"c": "79760", "n": "79760 - Curvelo"}, {"c": "79992", "n": "79992 - Nova Lima"}, {"c": "81572", "n": "81572 - Patos de Minas"}, {"c": "82432", "n": "82432 - Betim JK"}, {"c": "82437", "n": "82437 - BH Caiçaras"}, {"c": "82805", "n": "82805 - Pará de Minas"}]};
+const D = {"worker": "https://orthocrin-cadastro.suportecomercial.workers.dev", "endpoint": "https://orthocrin-cadastro.suportecomercial.workers.dev/cadastro", "lojas": [{"c": "2054", "n": "2054 - BH Savassi"}, {"c": "2960", "n": "2960 - Santo Antônio do Monte"}, {"c": "9000", "n": "9000 - Lagoa Santa"}, {"c": "11469", "n": "11469 - Ipatinga Macapá"}, {"c": "11986", "n": "11986 - Poços de Caldas"}, {"c": "12755", "n": "12755 - Diamantina"}, {"c": "12761", "n": "12761 - Ubá"}, {"c": "13103", "n": "13103 - Contagem Centro"}, {"c": "13833", "n": "13833 - Patos de Minas"}, {"c": "14771", "n": "14771 - Divinópolis"}, {"c": "14795", "n": "14795 - Unaí"}, {"c": "14996", "n": "14996 - Vespasiano"}, {"c": "15195", "n": "15195 - BH Grajaú"}, {"c": "15551", "n": "15551 - Platina"}, {"c": "15620", "n": "15620 - Sete Lagoas"}, {"c": "15693", "n": "15693 - Três Corações"}, {"c": "15707", "n": "15707 - BH Guarani"}, {"c": "15915", "n": "15915 - PP Aimorés"}, {"c": "15916", "n": "15916 - PP Colômbia"}, {"c": "15918", "n": "15918 - PP Afonso Pena"}, {"c": "16127", "n": "16127 - BH Sagrada Família"}, {"c": "16248", "n": "16248 - BH Cachoeirinha"}, {"c": "16416", "n": "16416 - BH Shopping Cidade (Novo)"}, {"c": "16470", "n": "16470 - Muriaé"}, {"c": "16672", "n": "16672 - BH Minas Shopping"}, {"c": "16705", "n": "16705 - Ibirité"}, {"c": "16833", "n": "16833 - Colchoes e Cia"}, {"c": "16896", "n": "16896 - BH Shopping Estação"}, {"c": "17010", "n": "17010 - Betim Centro"}, {"c": "17083", "n": "17083 - BH Shopping Del Rey (Novo)"}, {"c": "17124", "n": "17124 - BH Santa Inês"}, {"c": "17576", "n": "17576 - Bom Despacho"}, {"c": "17631", "n": "17631 - BH Shopping Boulevard"}, {"c": "17682", "n": "17682 - Manhuaçu"}, {"c": "17708", "n": "17708 - BH Floresta"}, {"c": "18229", "n": "18229 - BH Shopping Del Rey (Antigo)"}, {"c": "18554", "n": "18554 - São João Del Rey"}, {"c": "19171", "n": "19171 - BH Pará de Minas"}, {"c": "19222", "n": "19222 - Shopping Contagem"}, {"c": "19412", "n": "19412 - Barão de Cocais"}, {"c": "19589", "n": "19589 - Vila Velha"}, {"c": "19614", "n": "19614 - Varginha"}, {"c": "19891", "n": "19891 - Colatina"}, {"c": "20033", "n": "20033 - BH Céu Azul"}, {"c": "20134", "n": "20134 - Campos dos Goytacazes"}, {"c": "20229", "n": "20229 - BH Castelo"}, {"c": "20308", "n": "20308 - Itabirito"}, {"c": "20574", "n": "20574 - Timóteo"}, {"c": "20746", "n": "20746 - Caratinga"}, {"c": "20862", "n": "20862 - BH Shopping Cidade (Antigo)"}, {"c": "20946", "n": "20946 - Ipatinga Shopping Vale do Aço"}, {"c": "20957", "n": "20957 - BH Itapoã"}, {"c": "21032", "n": "21032 - BH Cidade Jardim"}, {"c": "21190", "n": "21190 - BH Minas Shopping"}, {"c": "21296", "n": "21296 - Brumadinho"}, {"c": "21329", "n": "21329 - Nova Lima Vila da Serra"}, {"c": "21547", "n": "21547 - Mariana"}, {"c": "21654", "n": "21654 - Ipatinga Cidade Nobre"}, {"c": "21839", "n": "21839 - BH Shopping Ponteio"}, {"c": "22071", "n": "22071 - Ouro Preto"}, {"c": "22167", "n": "22167 - BH Gutierrez"}, {"c": "22407", "n": "22407 - BH Lourdes"}, {"c": "23694", "n": "23694 - Igarapé"}, {"c": "23713", "n": "23713 - Curvelo"}, {"c": "23781", "n": "23781 - BH Jaraguá"}, {"c": "23929", "n": "23929 - Itaupower Shopping"}, {"c": "24329", "n": "24329 - BH Ouro Preto"}, {"c": "24414", "n": "24414 - Barbacena"}, {"c": "24520", "n": "24520 - Pedro Leopoldo"}, {"c": "24527", "n": "24527 - BH Rio Branco"}, {"c": "24644", "n": "24644 - BH Santa Amélia"}, {"c": "26670", "n": "26670 - Salgado Colchoes"}, {"c": "26671", "n": "26671 - BH Buritis (Antigo)"}, {"c": "26712", "n": "26712 - BH Padre Eustáquio"}, {"c": "26714", "n": "26714 - Pará de Minas"}, {"c": "27202", "n": "27202 - Nova Lima Centro"}, {"c": "27669", "n": "27669 - Volpi Colchões"}, {"c": "28138", "n": "28138 - Santa Luzia"}, {"c": "28231", "n": "28231 - Santa Clara"}, {"c": "29836", "n": "29836 - BH Santa Inês"}, {"c": "30605", "n": "30605 - BH Maria Helena"}, {"c": "30713", "n": "30713 - Viçosa"}, {"c": "31382", "n": "31382 - Conselheiro Lafaiete"}, {"c": "31446", "n": "31446 - São Gotardo"}, {"c": "32213", "n": "32213 - BH Céu Azul"}, {"c": "33203", "n": "33203 - BH Cidade Nova"}, {"c": "33467", "n": "33467 - BH Santa Amélia"}, {"c": "33580", "n": "33580 - Vitória"}, {"c": "34155", "n": "34155 - BH Dona Clara"}, {"c": "34156", "n": "34156 - BH Mangabeiras"}, {"c": "34189", "n": "34189 - BH Venda Nova"}, {"c": "35823", "n": "35823 - BH Dona Clara"}, {"c": "37473", "n": "37473 - Santa Clara - Raja"}, {"c": "38354", "n": "38354 - Juiz de Fora"}, {"c": "39831", "n": "39831 - BH Cidade Nova"}, {"c": "39838", "n": "39838 - Nova Lima Jardim Canadá"}, {"c": "39990", "n": "39990 - Ouro Branco"}, {"c": "47310", "n": "47310 - Betim Filadélfia"}, {"c": "49648", "n": "49648 - Sarzedo"}, {"c": "49921", "n": "49921 - BH Floresta 2"}, {"c": "49924", "n": "49924 - BH Ouro Preto"}, {"c": "50579", "n": "50579 - BH Lourdes"}, {"c": "51484", "n": "51484 - Pouso Alegre"}, {"c": "51485", "n": "51485 - Prado"}, {"c": "52119", "n": "52119 - BH Paquetá"}, {"c": "52952", "n": "52952 - João Monlevade"}, {"c": "53851", "n": "53851 - Serra"}, {"c": "54990", "n": "54990 - BH Santa Amélia"}, {"c": "55215", "n": "55215 - Campinas Cambui"}, {"c": "55407", "n": "55407 - Patos de Minas"}, {"c": "56196", "n": "56196 - Brasilia"}, {"c": "56198", "n": "56198 - BH Maria Helena"}, {"c": "56287", "n": "56287 - Itaperuna"}, {"c": "56514", "n": "56514 - Campinas II"}, {"c": "58288", "n": "58288 - Sete Lagoas"}, {"c": "59064", "n": "59064 - Contagem Petrolândia"}, {"c": "59952", "n": "59952 - BH Salgado Filho"}, {"c": "60281", "n": "60281 - Contagem Shopping"}, {"c": "60350", "n": "60350 - Mariana"}, {"c": "60521", "n": "60521 - Ouro Preto"}, {"c": "60607", "n": "60607 - Formosa"}, {"c": "60995", "n": "60995 - Montes Claros"}, {"c": "61139", "n": "61139 - Uberaba"}, {"c": "61481", "n": "61481 - Pouso Alegre"}, {"c": "64662", "n": "64662 - BH Carmo"}, {"c": "65860", "n": "65860 - BH Shopping Ponteio"}, {"c": "66278", "n": "66278 - Brasilia II"}, {"c": "66472", "n": "66472 - BH Buritis (Novo)"}, {"c": "71328", "n": "71328 - Ponte Nova"}, {"c": "71422", "n": "71422 - Governador Valadares"}, {"c": "72031", "n": "72031 - Itaúna"}, {"c": "74043", "n": "74043 - Ponte Nova"}, {"c": "75913", "n": "75913 - BH Rio Branco"}, {"c": "76252", "n": "76252 - BH Castelo"}, {"c": "76314", "n": "76314 - BH Mangabeiras"}, {"c": "77133", "n": "77133 - BH Gutierrez"}, {"c": "79760", "n": "79760 - Curvelo"}, {"c": "79992", "n": "79992 - Nova Lima"}, {"c": "81572", "n": "81572 - Patos de Minas"}, {"c": "82432", "n": "82432 - Betim JK"}, {"c": "82437", "n": "82437 - BH Caiçaras"}, {"c": "82805", "n": "82805 - Pará de Minas"}, {"c": "85498", "n": "85498 - Itabirito"}, {"c": "86467", "n": "86467 - Via Brasil Bh"}, {"c": "86780", "n": "86780 - Congonhas"}, {"c": "89290", "n": "89290 - BH Shopping Estação"}]};
 const $ = id => document.getElementById(id);
 const soDig = s => (s||'').replace(/\D/g,'');
 function validaCpf(v){ const c=soDig(v); if(c.length!==11||/^(\d)\1{10}$/.test(c))return false;
@@ -72,14 +159,30 @@ function valida(){
   ok &= erro('loja', $('loja').value ? '' : 'Selecione a sua loja.');
   return !!ok;
 }
+
+const TERMO_V = "2026-11-06";
+function termoOk(){
+  const txt = $('termo').checked ? '' : 'Para enviar, aceite o Termo de Adesão.';
+  const l=$('e-termo'); l.textContent=txt; l.className='erro'+(txt?' on':'');
+  return !txt;
+}
+function termoMarca(){ return ' ||termo:'+TERMO_V+'@'+new Date().toISOString(); }
+function termoJanela(on){ $('termo-fundo').className='termo-fundo'+(on?' on':''); }
+$('termo-abrir').addEventListener('click',e=>{ e.preventDefault(); termoJanela(true); });
+$('termo-fechar').addEventListener('click',()=>termoJanela(false));
+$('termo-aceitar').addEventListener('click',()=>{ $('termo').checked=true; termoOk(); termoJanela(false); });
+$('termo-fundo').addEventListener('click',e=>{ if(e.target===$('termo-fundo')) termoJanela(false); });
+$('termo').addEventListener('change',termoOk);
+
 function msg(t,cls){const m=$('msg');m.textContent=t||'';m.className='msg '+(cls||'');}
 $('f').addEventListener('submit', async e=>{
   e.preventDefault();
   if($('hp').value){ msg('Cadastro enviado! Aguarde a aprovação.','ok'); return; } // bot
-  if(!valida()) return;
+  const termoAceito=termoOk();
+  if(!valida()||!termoAceito) return;
   const opt=$('loja').selectedOptions[0];
   const corpo={nome:$('nome').value.trim(), cpf:soDig($('cpf').value), telefone:soDig($('telefone').value),
-    email:$('email').value.trim().toLowerCase(), codigo_loja:opt.dataset.c, loja_label:$('loja').value, hp:''};
+    email:$('email').value.trim().toLowerCase(), codigo_loja:opt.dataset.c, loja_label:$('loja').value+termoMarca(), hp:''};
   $('btn').disabled=true; msg('Enviando…','ok');
   try{
     const r=await fetch(D.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(corpo)});
